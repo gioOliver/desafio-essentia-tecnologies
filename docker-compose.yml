@@ -27,7 +27,7 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${DB_HOST}:${DB_PORT}/${MYSQL_DATABASE}
+      DATABASE_URL: mysql://root:root@${DB_HOST}:${DB_PORT}/${MYSQL_DATABASE}
       JWT_SECRET: ${JWT_SECRET}
       PORT: ${BACKEND_PORT}
     ports:
