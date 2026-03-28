@@ -4,12 +4,12 @@ services:
     container_name: techx_mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: techx
-      MYSQL_USER: techx
-      MYSQL_PASSWORD: techx
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3307:3306"
+      - "${DB_EXTERNAL_PORT}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -27,11 +27,11 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      DATABASE_URL: mysql://techx:techx@mysql:3306/techx
-      JWT_SECRET: supersecret
-      PORT: 3000
+      DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${DB_HOST}:${DB_PORT}/${MYSQL_DATABASE}
+      JWT_SECRET: ${JWT_SECRET}
+      PORT: ${BACKEND_PORT}
     ports:
-      - "3000:3000"
+      - "${BACKEND_PORT}:3000"
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -44,7 +44,7 @@ services:
     depends_on:
       - backend
     ports:
-      - "4200:4200"
+      - "${FRONTEND_PORT}:4200"
     volumes:
       - ./frontend:/app
       - /app/node_modules
