@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="card">
+    <h2>TechX</h2>
+    <p>Gerencie suas tarefas</p>
+
+    <input [(ngModel)]="email" placeholder="Email" />
+    <input [(ngModel)]="password" type="password" placeholder="Senha" />
+
+    <button (click)="submit()" [disabled]="!email || !password">
+      Entrar
+    </button>
+
+    <p class="register">
+      Não tem conta?
+      <a routerLink="/register">Criar conta</a>
+    </p>
+  </div>
+</div>
