@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { createTask
         , getTasks
-        , updateTask } from '../services/task.service';
+        , updateTask
+        , deleteTask } from '../services/task.service';
 
 export async function storeTask(req: Request, res: Response) {
     try {
@@ -52,6 +53,19 @@ export async function updateTaskController(req: Request, res: Response) {
 
         return res.json(task );
     }catch(error: any){
+        return res.status(400).json({ message: error.message });
+    }
+}
+
+export async function deleteTaskController(req: Request, res: Response) {
+    try{
+        const userId = (req as any).userId
+        const id = Number(req.params.id)
+
+        await deleteTask( id, userId )
+
+        return  res.status(204).send()
+    }catch (error: any){
         return res.status(400).json({ message: error.message });
     }
 }

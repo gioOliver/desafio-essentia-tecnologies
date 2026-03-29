@@ -78,3 +78,26 @@ export async function updateTask(id: number, data: any, userId: number)
         }
     })
 }
+
+export async function deleteTask(id: number, userId: number) {
+    const task = await prisma.task.findFirst({
+        where: {
+            id,
+            userId,
+            deletedAt: null
+        }
+    })
+
+    if (!task) {
+        throw new Error('Tarefa não encontrada ou não pertencente ao usuário')
+    }
+
+    return prisma.task.update({
+        where: {
+            id
+        },
+        data: {
+            deletedAt: new Date()
+        }
+    })
+}
