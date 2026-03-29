@@ -4,12 +4,13 @@ import { AuthService } from '../../../core/services/auth.service';
 import {Router, RouterLink} from '@angular/router';
 
 @Component({
-  selector: 'app-login',
   standalone: true,
   imports: [FormsModule, RouterLink],
-  templateUrl: './login.component.html'
+  templateUrl: './register.component.html',
 })
-export class LoginComponent {
+export class RegisterComponent {
+
+  name = '';
   email = '';
   password = '';
 
@@ -19,11 +20,15 @@ export class LoginComponent {
   ) {}
 
   submit() {
-    this.auth.login({
+    this.auth.register({
+      name: this.name,
       email: this.email,
       password: this.password
     }).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
+      next: () => {
+        alert('Conta criada com sucesso!');
+        this.router.navigate(['/']);
+      },
       error: err => alert(err.error.message)
     });
   }
