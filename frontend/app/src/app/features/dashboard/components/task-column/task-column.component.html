@@ -1,0 +1,14 @@
+<div class="column">
+  <h2>{{ title }}</h2>
+
+  @for (task of tasks; track task.id) {
+    <app-task-card
+      [task]="task"
+      (select)="selectTask.emit($event)">
+    </app-task-card>
+  }
+
+  @if (tasks.length === 0) {
+    <p>Nenhuma tarefa</p>
+  }
+</div>

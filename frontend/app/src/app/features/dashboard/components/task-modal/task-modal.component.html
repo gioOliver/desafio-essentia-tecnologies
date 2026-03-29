@@ -1,0 +1,22 @@
+<div class="modal-backdrop">
+
+  <div class="modal">
+
+    <button (click)="close.emit()">X</button>
+
+    <h2>{{ task.title }}</h2>
+    <p>{{ task.description }}</p>
+
+    <div>
+      <button (click)="toggle.emit(task)">
+        {{ task.status ? 'Reabrir' : 'Concluir' }}
+      </button>
+
+      <button (click)="delete.emit(task.id)">
+        Excluir
+      </button>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,39 @@
+<div class="dashboard">
+  <header class="header">
+    <div class="logo">TechX</div>
+
+    <div class="user">
+      <span>Usuário</span>
+      <button class="logout-btn">Sair</button>
+    </div>
+  </header>
+
+  <div class="actions">
+    <button class="add-btn">+ Nova tarefa</button>
+  </div>
+
+  <div class="columns">
+    <app-task-column
+      title="To Do"
+      [tasks]="todoTasks"
+      (selectTask)="openTask($event)">
+    </app-task-column>
+
+    <app-task-column
+      title="Done"
+      [tasks]="doneTasks"
+      (selectTask)="openTask($event)">
+    </app-task-column>
+
+  </div>
+
+  @if (selectedTask) {
+    <app-task-modal
+      [task]="selectedTask"
+      (close)="closeModal()"
+      (toggle)="toggleTask($event)"
+      (delete)="deleteTask($event)">
+    </app-task-modal>
+  }
+
+</div>
