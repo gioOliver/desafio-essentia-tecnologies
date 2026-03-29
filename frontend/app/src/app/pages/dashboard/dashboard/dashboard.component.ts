@@ -87,4 +87,11 @@ export class DashboardComponent implements OnInit {
       this.closeModal();
     });
   }
+
+  logout() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+
+    window.location.href = '/';
+  }
 }
