@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createTask } from '../services/task.service';
+import { createTask, getTasks } from '../services/task.service';
 
 export async function storeTask(req: Request, res: Response) {
     try {
@@ -18,6 +18,18 @@ export async function storeTask(req: Request, res: Response) {
         );
 
         return res.status(201).json(task);
+    } catch (error: any) {
+        return res.status(400).json({ message: error.message });
+    }
+}
+
+export async function listTasks(req: Request, res: Response) {
+    try {
+        const userId = (req as any).userId;
+
+        const tasks = await getTasks(userId);
+
+        return res.json(tasks);
     } catch (error: any) {
         return res.status(400).json({ message: error.message });
     }

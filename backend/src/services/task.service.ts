@@ -13,3 +13,15 @@ export async function createTask(data: {
         }
     });
 }
+
+export async function getTasks(userId: number) {
+    return prisma.task.findMany({
+        where: {
+            userId,
+            deletedAt: null
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    });
+}
