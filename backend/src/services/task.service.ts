@@ -3,12 +3,26 @@ import { prisma } from '../lib/prisma';
 export async function createTask(data: {
     title: string;
     description?: string;
+    status?: boolean;
     dueDate?: Date;
 }, userId: number) {
+
+
+    let dueDate: Date | undefined = undefined;
+    if (data.dueDate !== undefined) {
+        const parsedDate = new Date(data.dueDate);
+
+        if (isNaN(parsedDate.getTime())) {
+            throw new Error('Data inválida. Use formato YYYY-MM-DD');
+        }
+
+        dueDate = parsedDate;
+    }
+
     return prisma.task.create({
         data: {
             ...data,
-            dueDate: data.dueDate ? new Date(data.dueDate) : null,
+            dueDate: dueDate,
             userId
         }
     });

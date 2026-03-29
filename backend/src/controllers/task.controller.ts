@@ -6,7 +6,7 @@ import { createTask
 export async function storeTask(req: Request, res: Response) {
     try {
         const userId = (req as any).userId;
-        const { title, description, dueDate } = req.body;
+        const { title, description, status, dueDate } = req.body;
 
         if (!title) {
             return res.status(400).json({
@@ -15,7 +15,7 @@ export async function storeTask(req: Request, res: Response) {
         }
 
         const task = await createTask(
-            { title, description, dueDate },
+            { title, description, status, dueDate },
             userId
         );
 
