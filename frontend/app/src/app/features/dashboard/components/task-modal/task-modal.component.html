@@ -1,22 +1,58 @@
-<div class="modal-backdrop">
+@if (task) {
+  <div class="modal-backdrop">
 
-  <div class="modal">
+    <div class="modal">
 
-    <button (click)="close.emit()">X</button>
+      <button (click)="close.emit()">X</button>
 
-    <h2>{{ task.title }}</h2>
-    <p>{{ task.description }}</p>
+      @if (!isEditing) {
 
-    <div>
-      <button (click)="toggle.emit(task)">
-        {{ task.status ? 'Reabrir' : 'Concluir' }}
-      </button>
+        <h2>{{ task.title }}</h2>
+        <p>{{ task.description }}</p>
+        <small>{{ task.dueDate }}</small>
 
-      <button (click)="delete.emit(task.id)">
-        Excluir
-      </button>
+        <div class="modal-actions">
+          <button (click)="startEdit()">Editar</button>
+
+          <button (click)="toggle.emit(task)">
+            {{ task.status ? 'Reabrir' : 'Concluir' }}
+          </button>
+
+          <button (click)="delete.emit(task.id)">
+            Excluir
+          </button>
+        </div>
+
+      }
+
+      @if (isEditing) {
+
+        <h2>Editar tarefa</h2>
+
+        <input
+          type="text"
+          [(ngModel)]="editData.title"
+          placeholder="Título"
+        />
+
+        <textarea
+          [(ngModel)]="editData.description"
+          placeholder="Descrição"
+        ></textarea>
+
+        <input
+          type="date"
+          [(ngModel)]="editData.dueDate"
+        />
+
+        <div class="modal-actions">
+          <button (click)="saveEdit()">Salvar</button>
+          <button (click)="cancelEdit()">Cancelar</button>
+        </div>
+
+      }
+
     </div>
 
   </div>
-
-</div>
+}

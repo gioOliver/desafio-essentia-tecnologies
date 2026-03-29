@@ -74,4 +74,11 @@ export class DashboardComponent implements OnInit {
       this.closeModal();
     });
   }
+
+  updateTask(task: any) {
+    this.taskService.updateTask(task.id, task).subscribe(() => {
+      this.loadTasks();
+      this.closeModal();
+    });
+  }
 }
