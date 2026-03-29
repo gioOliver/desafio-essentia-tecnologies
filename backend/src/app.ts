@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 import { authRouter } from './routes/auth.routes';
+import { taskRouter } from './routes/task.routes';
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.get('/health', (_, res) => {
 });
 
 app.use('/auth', authRouter);
+app.use('/tasks', taskRouter);
 
 export { app };
