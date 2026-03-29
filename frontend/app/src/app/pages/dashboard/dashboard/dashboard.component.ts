@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   todoTasks: any[] = [];
   doneTasks: any[] = [];
   selectedTask: any = null;
+  user: any = null;
 
   constructor(
     private taskService: TaskService,
@@ -29,6 +30,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTasks();
+    const userData = localStorage.getItem('user');
+
+    if (userData) {
+      this.user = JSON.parse(userData);
+    }
   }
 
   loadTasks() {
