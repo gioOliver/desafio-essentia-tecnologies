@@ -1,9 +1,9 @@
 @if (task) {
-  <div class="modal-backdrop">
+  <div class="modal-backdrop" (click)="close.emit()">
 
-    <div class="modal">
+    <div class="modal" (click)="$event.stopPropagation()">
 
-      <button (click)="close.emit()">X</button>
+      <button class="close-btn" (click)="close.emit()">X</button>
 
       @if (isEditing || isCreating) {
 
@@ -11,28 +11,37 @@
           {{ isCreating ? 'Nova tarefa' : 'Editar tarefa #'+task.id }}
         </h2>
 
-        <input
-          type="text"
-          [(ngModel)]="editData.title"
-          placeholder="Título"
-        />
+        <form>
 
-        <textarea
-          [(ngModel)]="editData.description"
-          placeholder="Descrição"
-        ></textarea>
+          <input
+            type="text"
+            [(ngModel)]="editData.title"
+            name="title"
+            placeholder="Título"
+          />
 
-        <input
-          type="date"
-          [(ngModel)]="editData.dueDate"
-        />
+          <textarea
+            [(ngModel)]="editData.description"
+            name="description"
+            placeholder="Descrição"
+          ></textarea>
+
+          <input
+            type="date"
+            name="dueDate"
+            [(ngModel)]="editData.dueDate"
+          />
+
+        </form>
 
         <div class="modal-actions">
-          <button (click)="saveEdit()">
+          <button class="btn-primary" (click)="saveEdit()">
             {{ isCreating ? 'Criar' : 'Salvar' }}
           </button>
 
-          <button (click)="cancelEdit()">Cancelar</button>
+          <button class="btn-secondary" (click)="cancelEdit()">
+            Cancelar
+          </button>
         </div>
 
       }
@@ -51,13 +60,13 @@
         </small>
 
         <div class="modal-actions">
-          <button (click)="startEdit()">Editar</button>
+          <button class="btn-secondary" (click)="startEdit()">Editar</button>
 
-          <button (click)="toggle.emit(task)">
+          <button class="btn-success" (click)="toggle.emit(task)">
             {{ task.status ? 'Reabrir' : 'Concluir' }}
           </button>
 
-          <button (click)="delete.emit(task.id)">
+          <button class="btn-danger" (click)="delete.emit(task.id)">
             Excluir
           </button>
         </div>

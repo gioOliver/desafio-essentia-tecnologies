@@ -1,4 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component
+  , Input
+  , Output
+  , EventEmitter
+  , OnInit
+  , OnDestroy } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 
@@ -12,7 +17,7 @@ import {DatePipe} from '@angular/common';
   ],
   styleUrls: ['./task-modal.component.css']
 })
-export class TaskModalComponent {
+export class TaskModalComponent implements OnInit, OnDestroy {
 
   @Input() task: any;
 
@@ -25,6 +30,14 @@ export class TaskModalComponent {
   isCreating = false;
 
   editData: any = {};
+
+  ngOnInit() {
+    document.body.style.overflow = 'hidden';
+  }
+
+  ngOnDestroy() {
+    document.body.style.overflow = 'auto';
+  }
 
   ngOnChanges() {
     if (this.task) {
