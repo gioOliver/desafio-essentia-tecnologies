@@ -52,6 +52,12 @@
   min-height: 80px;
 }
 
+small {
+  font-size: 12px;
+  color: #888;
+  text-align: right;
+}
+
 .modal input[type="date"] {
   max-width: 200px;
 }

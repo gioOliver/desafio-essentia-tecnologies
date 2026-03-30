@@ -32,6 +32,9 @@ export class TaskModalComponent implements OnInit, OnDestroy {
 
   editData: any = {};
 
+  maxTitleLength = 190;
+  maxDescriptionLength = 1500;
+
   ngOnInit() {
     document.body.style.overflow = 'hidden';
   }
@@ -65,6 +68,21 @@ export class TaskModalComponent implements OnInit, OnDestroy {
 
   saveEdit() {
     this.error = '';
+
+    if (!this.editData.title || this.editData.title.trim() === '') {
+      this.error = 'Título é obrigatório';
+      return;
+    }
+
+    if (this.editData.title.length > this.maxTitleLength) {
+      this.error = `Título deve ter no máximo ${this.maxTitleLength} caracteres`;
+      return;
+    }
+
+    if (this.editData.description?.length > this.maxDescriptionLength) {
+      this.error = `Descrição deve ter no máximo ${this.maxDescriptionLength} caracteres`;
+      return;
+    }
 
     this.update.emit(this.editData);
   }

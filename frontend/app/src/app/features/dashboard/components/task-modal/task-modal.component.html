@@ -20,16 +20,20 @@
           <input
             type="text"
             [(ngModel)]="editData.title"
+            [maxlength]="maxTitleLength"
             name="title"
             placeholder="Título"
           />
 
           <textarea
             [(ngModel)]="editData.description"
+            [maxlength]="maxDescriptionLength"
             name="description"
             placeholder="Descrição"
           ></textarea>
-
+          <small>
+            {{ editData.description?.length || 0 }} / {{ maxDescriptionLength }}
+          </small>
           <input
             type="date"
             name="dueDate"
