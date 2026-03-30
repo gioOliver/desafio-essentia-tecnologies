@@ -28,15 +28,21 @@
     </app-task-column>
 
   </div>
-
   @if (selectedTask) {
     <app-task-modal
       [task]="selectedTask"
       (close)="closeModal()"
       (toggle)="toggleTask($event)"
-      (delete)="deleteTask($event)"
+      (delete)="openDeleteConfirm($event)"
       (update)="updateTask($event)">
     </app-task-modal>
+  }
+  @if (confirmDeleteId) {
+    <app-confirm-modal
+      message="Tem certeza que deseja excluir essa tarefa?"
+      (confirm)="confirmDelete()"
+      (cancel)="closeConfirm()">
+    </app-confirm-modal>
   }
 
 </div>

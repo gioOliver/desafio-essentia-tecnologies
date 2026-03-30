@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { TaskService } from '../../../core/services/task.service';
 import { CommonModule } from '@angular/common';
-import {TaskColumnComponent} from '../../../features/dashboard/components/task-column/task-column.component';
-import {TaskModalComponent} from '../../../features/dashboard/components/task-modal/task-modal.component';
+import { TaskColumnComponent } from '../../../features/dashboard/components/task-column/task-column.component';
+import { TaskModalComponent } from '../../../features/dashboard/components/task-modal/task-modal.component';
+import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,8 @@ import {TaskModalComponent} from '../../../features/dashboard/components/task-mo
   imports: [
     CommonModule,
     TaskColumnComponent,
-    TaskModalComponent
+    TaskModalComponent,
+    ConfirmModalComponent
   ],
   styleUrls: ['./dashboard.component.css']
 })
@@ -22,6 +24,7 @@ export class DashboardComponent implements OnInit {
   doneTasks: any[] = [];
   selectedTask: any = null;
   user: any = null;
+  confirmDeleteId: number | null = null;
 
   constructor(
     private taskService: TaskService,
@@ -44,9 +47,6 @@ export class DashboardComponent implements OnInit {
 
         this.todoTasks = this.tasks.filter(task => task.status == false);
         this.doneTasks = this.tasks.filter(task => task.status == true);
-
-        console.log('TODO:', this.todoTasks);
-        console.log('DONE:', this.doneTasks);
 
         this.cdr.detectChanges();
       },
@@ -110,4 +110,23 @@ export class DashboardComponent implements OnInit {
       status: false
     };
   }
+
+  openDeleteConfirm(id: number) {
+    this.confirmDeleteId = id;
+  }
+
+  closeConfirm() {
+    this.confirmDeleteId = null;
+  }
+
+  confirmDelete() {
+    if (!this.confirmDeleteId) return;
+
+    this.taskService.deleteTask(this.confirmDeleteId).subscribe(() => {
+      this.loadTasks();
+      this.closeConfirm();
+      this.closeModal();
+    });
+  }
+
 }
