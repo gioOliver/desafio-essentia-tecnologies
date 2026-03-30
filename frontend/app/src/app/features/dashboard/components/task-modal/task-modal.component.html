@@ -42,6 +42,13 @@
 
         <h2>#{{ task.id }} - {{ task.title }}</h2>
         <p>{{ task.description }}</p>
+        <small>
+          📅 Prazo: {{ task.dueDate | date:'dd/MM/yyyy':'America/Sao_Paulo' }}
+        </small><br>
+
+        <small>
+          🕒 Criado: {{ task.createdAt | date:'dd/MM/yyyy HH:mm:ss':'America/Sao_Paulo' }}
+        </small>
 
         <div class="modal-actions">
           <button (click)="startEdit()">Editar</button>

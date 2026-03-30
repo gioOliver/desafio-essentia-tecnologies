@@ -1,5 +1,12 @@
 <div class="task-card" (click)="onClick()">
-  <h3>#{{ task.id }} - {{ task.title }}</h3>
+  <h3>{{ task.title }}</h3>
   <p>{{ task.description }}</p>
-  <p>{{ task.dueDate }}</p>
+
+  <small>
+    📅 Prazo: {{ task.dueDate | date:'dd/MM/yyyy':'America/Sao_Paulo' }}
+  </small><br>
+
+  <small>
+    🕒 Criado: {{ task.createdAt | date:'dd/MM/yyyy HH:mm:ss':'America/Sao_Paulo' }}
+  </small>
 </div>
