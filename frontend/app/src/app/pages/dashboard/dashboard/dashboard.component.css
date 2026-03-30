@@ -14,25 +14,21 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* Logo */
 .logo {
   font-size: 18px;
   font-weight: 600;
 }
 
-/* User area */
 .user {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-/* Nome do usuário */
 .user span {
   font-size: 14px;
 }
 
-/* Botão logout */
 .logout-btn {
   padding: 6px 12px;
   border-radius: 6px;
@@ -47,4 +43,50 @@
 
 .logout-btn:hover {
   background: #e0e0e0;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+.add-btn {
+  background: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.add-btn:hover {
+  background: #303f9f;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  padding: 10px 30px;
+}
+
+.column {
+  background: #ebecf0;
+  padding: 12px;
+  border-radius: 12px;
+
+  min-height: 400px;
+
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+@media (max-width: 768px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
 }
