@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TaskColumnComponent } from '../../../features/dashboard/components/task-column/task-column.component';
 import { TaskModalComponent } from '../../../features/dashboard/components/task-modal/task-modal.component';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,10 +30,18 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      this.router.navigate(['/']);
+      return;
+    }
+
     this.loadTasks();
     const userData = localStorage.getItem('user');
 

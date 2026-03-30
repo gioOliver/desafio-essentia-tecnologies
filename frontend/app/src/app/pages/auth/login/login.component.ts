@@ -19,6 +19,14 @@ export class LoginComponent {
     private router: Router
   ) {}
 
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
   submit() {
     this.auth.login({
       email: this.email,
