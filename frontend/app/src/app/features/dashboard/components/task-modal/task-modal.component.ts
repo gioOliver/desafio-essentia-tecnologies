@@ -55,8 +55,12 @@ export class TaskModalComponent implements OnInit, OnDestroy {
   }
 
   cancelEdit() {
+    if (this.isCreating) {
+      this.close.emit();
+      return;
+    }
+
     this.isEditing = false;
-    this.isCreating = false;
   }
 
   saveEdit() {
