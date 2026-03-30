@@ -25,6 +25,7 @@ export class TaskModalComponent implements OnInit, OnDestroy {
   @Output() toggle = new EventEmitter<any>();
   @Output() delete = new EventEmitter<number>();
   @Output() update = new EventEmitter<any>();
+  @Input() error: string = '';
 
   isEditing = false;
   isCreating = false;
@@ -59,6 +60,8 @@ export class TaskModalComponent implements OnInit, OnDestroy {
   }
 
   saveEdit() {
+    this.error = '';
+
     this.update.emit(this.editData);
   }
 

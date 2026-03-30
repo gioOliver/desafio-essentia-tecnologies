@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
   selectedTask: any = null;
   user: any = null;
   confirmDeleteId: number | null = null;
+  formError: string = '';
 
   constructor(
     private taskService: TaskService,
@@ -55,6 +56,7 @@ export class DashboardComponent implements OnInit {
   }
 
   openTask(task: any) {
+    this.formError = '';
     this.selectedTask = task;
   }
 
@@ -82,17 +84,25 @@ export class DashboardComponent implements OnInit {
   }
 
   updateTask(task: any) {
-    if (task.id) {
-      this.taskService.updateTask(task.id, task).subscribe(() => {
+    this.formError = '';
+
+    const request = task.id
+      ? this.taskService.updateTask(task.id, task)
+      : this.taskService.createTask(task);
+
+    request.subscribe({
+      next: () => {
         this.loadTasks();
         this.closeModal();
-      });
-    } else {
-      this.taskService.createTask(task).subscribe(() => {
-        this.loadTasks();
-        this.closeModal();
-      });
-    }
+      },
+      error: (err) => {
+        console.log('erro backend:', err);
+
+        this.formError = err.error?.message || 'Erro ao salvar tarefa';
+
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   logout() {
@@ -103,6 +113,7 @@ export class DashboardComponent implements OnInit {
   }
 
   openCreateModal() {
+    this.formError = '';
     this.selectedTask = {
       title: '',
       description: '',
@@ -128,5 +139,4 @@ export class DashboardComponent implements OnInit {
       this.closeModal();
     });
   }
-
 }

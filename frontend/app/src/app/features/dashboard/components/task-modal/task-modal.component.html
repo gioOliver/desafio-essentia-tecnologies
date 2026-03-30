@@ -10,7 +10,11 @@
         <h2>
           {{ isCreating ? 'Nova tarefa' : 'Editar tarefa #'+task.id }}
         </h2>
-
+        @if (error) {
+          <div class="error-box">
+            {{ error }}
+          </div>
+        }
         <form>
 
           <input
@@ -46,7 +50,6 @@
 
       }
 
-      <!-- VIEW -->
       @if (!isEditing && !isCreating) {
 
         <h2>#{{ task.id }} - {{ task.title }}</h2>
@@ -72,7 +75,6 @@
         </div>
 
       }
-
 
     </div>
 

@@ -31,6 +31,7 @@
   @if (selectedTask) {
     <app-task-modal
       [task]="selectedTask"
+      [error]="formError"
       (close)="closeModal()"
       (toggle)="toggleTask($event)"
       (delete)="openDeleteConfirm($event)"
