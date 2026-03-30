@@ -20,20 +20,27 @@ export class TaskModalComponent {
   @Output() update = new EventEmitter<any>();
 
   isEditing = false;
+  isCreating = false;
 
   editData: any = {};
 
+  ngOnChanges() {
+    if (this.task) {
+      this.isCreating = !this.task.id;
+    }
+  }
+
   startEdit() {
     this.isEditing = true;
-    this.editData = { ...this.task }; // cópia
+    this.editData = { ...this.task };
   }
 
   cancelEdit() {
     this.isEditing = false;
+    this.isCreating = false;
   }
 
   saveEdit() {
     this.update.emit(this.editData);
-    this.isEditing = false;
   }
 }

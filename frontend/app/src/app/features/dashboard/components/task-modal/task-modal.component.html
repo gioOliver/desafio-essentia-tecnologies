@@ -5,29 +5,11 @@
 
       <button (click)="close.emit()">X</button>
 
-      @if (!isEditing) {
+      @if (isEditing || isCreating) {
 
-        <h2>{{ task.title }}</h2>
-        <p>{{ task.description }}</p>
-        <small>{{ task.dueDate }}</small>
-
-        <div class="modal-actions">
-          <button (click)="startEdit()">Editar</button>
-
-          <button (click)="toggle.emit(task)">
-            {{ task.status ? 'Reabrir' : 'Concluir' }}
-          </button>
-
-          <button (click)="delete.emit(task.id)">
-            Excluir
-          </button>
-        </div>
-
-      }
-
-      @if (isEditing) {
-
-        <h2>Editar tarefa</h2>
+        <h2>
+          {{ isCreating ? 'Nova tarefa' : 'Editar tarefa' }}
+        </h2>
 
         <input
           type="text"
@@ -46,11 +28,35 @@
         />
 
         <div class="modal-actions">
-          <button (click)="saveEdit()">Salvar</button>
+          <button (click)="saveEdit()">
+            {{ isCreating ? 'Criar' : 'Salvar' }}
+          </button>
+
           <button (click)="cancelEdit()">Cancelar</button>
         </div>
 
       }
+
+      <!-- VIEW -->
+      @if (!isEditing && !isCreating) {
+
+        <h2>{{ task.title }}</h2>
+        <p>{{ task.description }}</p>
+
+        <div class="modal-actions">
+          <button (click)="startEdit()">Editar</button>
+
+          <button (click)="toggle.emit(task)">
+            {{ task.status ? 'Reabrir' : 'Concluir' }}
+          </button>
+
+          <button (click)="delete.emit(task.id)">
+            Excluir
+          </button>
+        </div>
+
+      }
+
 
     </div>
 

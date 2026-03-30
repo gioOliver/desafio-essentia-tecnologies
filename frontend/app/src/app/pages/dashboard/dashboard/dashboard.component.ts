@@ -82,10 +82,17 @@ export class DashboardComponent implements OnInit {
   }
 
   updateTask(task: any) {
-    this.taskService.updateTask(task.id, task).subscribe(() => {
-      this.loadTasks();
-      this.closeModal();
-    });
+    if (task.id) {
+      this.taskService.updateTask(task.id, task).subscribe(() => {
+        this.loadTasks();
+        this.closeModal();
+      });
+    } else {
+      this.taskService.createTask(task).subscribe(() => {
+        this.loadTasks();
+        this.closeModal();
+      });
+    }
   }
 
   logout() {
@@ -93,5 +100,14 @@ export class DashboardComponent implements OnInit {
     localStorage.removeItem('token');
 
     window.location.href = '/';
+  }
+
+  openCreateModal() {
+    this.selectedTask = {
+      title: '',
+      description: '',
+      dueDate: '',
+      status: false
+    };
   }
 }

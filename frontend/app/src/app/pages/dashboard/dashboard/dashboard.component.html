@@ -8,9 +8,9 @@
     </div>
   </header>
 
-  <div class="actions">
-    <button class="add-btn">+ Nova tarefa</button>
-  </div>
+  <button class="add-btn" (click)="openCreateModal()">
+    + Nova tarefa
+  </button>
 
   <div class="columns">
     <app-task-column
