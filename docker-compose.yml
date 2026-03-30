@@ -43,9 +43,6 @@ services:
       - backend
     ports:
       - "${FRONTEND_PORT}:4200"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
 
 volumes:
   mysql_data:
