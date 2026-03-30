@@ -8,7 +8,7 @@
       @if (isEditing || isCreating) {
 
         <h2>
-          {{ isCreating ? 'Nova tarefa' : 'Editar tarefa' }}
+          {{ isCreating ? 'Nova tarefa' : 'Editar tarefa #'+task.id }}
         </h2>
 
         <input
@@ -40,7 +40,7 @@
       <!-- VIEW -->
       @if (!isEditing && !isCreating) {
 
-        <h2>{{ task.title }}</h2>
+        <h2>#{{ task.id }} - {{ task.title }}</h2>
         <p>{{ task.description }}</p>
 
         <div class="modal-actions">
